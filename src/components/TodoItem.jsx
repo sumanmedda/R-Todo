@@ -1,16 +1,16 @@
 function TodoItem(){
-  let todoName = "Buy Milk"
+  let todoItems = ["Buy Milk","Get to College","Complete home works"]
   let todoDate = "4/10/2023"
 
-  return <div class="row suman-row">
-  <div class="col-6">
-    {todoName}
+  return <div className="row suman-row">
+  <div className="col-6">
+    {todoItems.map(items => <li key={items} className="list-group-item">{items}</li>)}
   </div>
-  <div class="col-4">
+  <div className="col-4">
     {todoDate}
   </div>
-  <div class="col-2">
-  <button type="button" class="btn btn-danger suman-button">Delete</button>
+  <div className="col-2">
+  <button type="button" className="btn btn-danger suman-button">Delete</button>
   </div>
 </div>
 }

@@ -1,18 +1,21 @@
-function TodoItem(){
-  let todoItems = ["Buy Milk","Get to College","Complete home works"]
-  let todoDate = "4/10/2023"
+import css from "./TodoItem.module.css"
 
-  return <div className="row suman-row">
-  <div className="col-6">
-    {todoItems.map(items => <li key={items} className="list-group-item">{items}</li>)}
-  </div>
-  <div className="col-4">
-    {todoDate}
-  </div>
-  <div className="col-2">
-  <button type="button" className="btn btn-danger suman-button">Delete</button>
-  </div>
-</div>
+function TodoItem({todoName, todoDate}){
+  return(
+    <div className="container">
+      <div className={`row ${css["suman-row"]}`}>
+        <div className="col-6">
+          {todoName}
+        </div>
+        <div className="col-4">
+          {todoDate}
+        </div>
+        <div className="col-2">
+          <button type="button" className={`btn btn-danger ${css["suman-button"]}`}>Delete</button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default TodoItem;

@@ -1,3 +1,5 @@
+import css from "./TodoItem.module.css"
+
 function AddTodo(){
   return(
     <div className="row suman-row">
@@ -8,7 +10,7 @@ function AddTodo(){
         <input type="date"/>
       </div>
       <div className="col-2">
-      <button type="button" className="btn btn-success suman-button">Add</button>
+      <button type="button" className={`btn btn-success ${css["suman-button"]}`}>Add</button>
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import ErrorMessage from "./components/ErrorMessage"
 
 function App() {
   let [eventValue, setEventValue] = useState("");
+  let [dateEventValue, setDateEventValue] = useState("");
   let [inputText, setinputText] = useState('You Can Add Item');
   let [allItems, setallItems] = useState(
     [
@@ -22,11 +23,15 @@ function App() {
       setinputText(event.target.value)
   }
 
+  const handleAddTodoDate = (event) => {
+    setDateEventValue(event.target.value)
+}
+
   const handleAddTodoButton = () => {
     let inputText = eventValue.target.value
-    let currDate = new Date().toLocaleDateString()
+    let curDate = new Date().toLocaleDateString()
     // Adding Item in existing list
-    let newItem = [...allItems,{"id":allItems.length === 0 ? 1 :allItems[allItems.length - 1].id+1,"itemName":inputText,"date":currDate}]
+    let newItem = [...allItems,{"id":allItems.length === 0 ? 1 :allItems[allItems.length - 1].id+1,"itemName":inputText,"date":dateEventValue === '' ? curDate :dateEventValue }]
     // Setting new Item
     setallItems(newItem)
     eventValue.target.value = ""
@@ -46,7 +51,7 @@ function App() {
     <AppName />
     <CurrentDateTime />
     {inputText}
-    <AddTodo handleAddTodoText={handleAddTodoText} handleAddTodoButton={handleAddTodoButton} />
+    <AddTodo handleAddTodoDate={handleAddTodoDate} handleAddTodoText={handleAddTodoText} handleAddTodoButton={handleAddTodoButton} />
     <div className="items-container">
       <ErrorMessage allItems={allItems}/>
       <TodoItems handleOnDelete={handleOnDelete} allItems={allItems}/>

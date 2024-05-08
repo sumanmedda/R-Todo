@@ -5,6 +5,7 @@ import "./App.css"
 import CurrentDateTime from "./components/CurrentDateTime"
 import Container from "./components/Container"
 import { useState } from "react"
+import ErrorMessage from "./components/ErrorMessage"
 
 function App() {
   let [eventValue, setEventValue] = useState("");
@@ -25,7 +26,7 @@ function App() {
     let inputText = eventValue.target.value
     let currDate = new Date().toLocaleDateString()
     // Adding Item in existing list
-    let newItem = [...allItems,{"id":allItems[allItems.length - 1].id+1,"itemName":inputText,"date":currDate}]
+    let newItem = [...allItems,{"id":allItems.length === 0 ? 1 :allItems[allItems.length - 1].id+1,"itemName":inputText,"date":currDate}]
     // Setting new Item
     setallItems(newItem)
     eventValue.target.value = ""
@@ -33,14 +34,10 @@ function App() {
   }
 
   const handleOnDelete = (id) => {
-    
     let delItem = allItems.filter((item) => {
-      
       return item.id !== id
     })
-
     setallItems(delItem)
-    
   }
 
   return( 
@@ -51,6 +48,7 @@ function App() {
     {inputText}
     <AddTodo handleAddTodoText={handleAddTodoText} handleAddTodoButton={handleAddTodoButton} />
     <div className="items-container">
+      <ErrorMessage allItems={allItems}/>
       <TodoItems handleOnDelete={handleOnDelete} allItems={allItems}/>
     </div>
   </center>

@@ -11,12 +11,7 @@ function App() {
   let [eventValue, setEventValue] = useState("");
   let [dateEventValue, setDateEventValue] = useState("");
   let [inputText, setinputText] = useState('You Can Add Item');
-  let [allItems, setallItems] = useState(
-    [
-      {"id":1,"itemName":"Buy Milk","date":"04/06/2024",},
-      {"id":2,"itemName":"Buy Bread","date":"05/06/2024",},
-      {"id":3,"itemName":"Buy Chips","date":"06/06/2024",},
-    ])
+  let [allItems, setallItems] = useState([])
   
   const handleAddTodoText = (event) => {
       setEventValue(event)
@@ -35,6 +30,8 @@ function App() {
     // Setting new Item
     setallItems(newItem)
     eventValue.target.value = ""
+    dateEventValue = ""
+    setDateEventValue("")
     setinputText("You Can Add Item")
   }
 
@@ -51,7 +48,7 @@ function App() {
     <AppName />
     <CurrentDateTime />
     {inputText}
-    <AddTodo handleAddTodoDate={handleAddTodoDate} handleAddTodoText={handleAddTodoText} handleAddTodoButton={handleAddTodoButton} />
+    <AddTodo updatedDate={dateEventValue} handleAddTodoDate={handleAddTodoDate} handleAddTodoText={handleAddTodoText} handleAddTodoButton={handleAddTodoButton} />
     <div className="items-container">
       <ErrorMessage allItems={allItems}/>
       <TodoItems handleOnDelete={handleOnDelete} allItems={allItems}/>

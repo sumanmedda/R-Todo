@@ -1,5 +1,6 @@
 import { useState } from "react"
 import css from "./TodoItem.module.css"
+import { MdAddBox } from "react-icons/md";
 
 function AddTodo({updatedDate, handleAddTodoText, handleAddTodoDate, handleAddTodoButton}){
   
@@ -12,7 +13,7 @@ function AddTodo({updatedDate, handleAddTodoText, handleAddTodoDate, handleAddTo
         <input type="date" value={updatedDate} onChange={(event) => handleAddTodoDate(event)} />
       </div>
       <div className="col-2">
-      <button type="button" onClick = {() => handleAddTodoButton()} className={`btn btn-success ${css["suman-button"]}`}>Add</button>
+      <button type="button" onClick = {() => handleAddTodoButton()} className={`btn btn-success ${css["suman-button"]}`}><MdAddBox /></button>
       
       </div>
     </div>

@@ -4,7 +4,7 @@ import TodoItems from "./components/TodoItems"
 import "./App.css"
 import CurrentDateTime from "./components/CurrentDateTime"
 import Container from "./components/Container"
-import { useState, useRef } from "react"
+import { useState, } from "react"
 import ErrorMessage from "./components/ErrorMessage"
 import { ItemsContext } from "./store/ItemsContext"
 

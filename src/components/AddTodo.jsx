@@ -1,19 +1,26 @@
-import { useState } from "react"
+import { useRef } from "react";
 import css from "./TodoItem.module.css"
 import { MdAddBox } from "react-icons/md";
+import { useContext } from "react";
+import { ItemsContext } from "../store/ItemsContext";
 
-function AddTodo({updatedDate, handleAddTodoText, handleAddTodoDate, handleAddTodoButton}){
+function AddTodo(){
+
+  const {dateEventValue, handleAddTodoText, handleAddTodoDate, handleAddTodoButton} = useContext(ItemsContext)
+
+  const finalName = useRef()
+  const finalDate = useRef()
   
   return(
     <div className="row suman-row">
       <div className="col-6">
-        <input onChange={(event) => handleAddTodoText(event)} type="text" placeholder="Enter Todo Here"/>
+        <input ref={finalName} onChange={(event) => handleAddTodoText(event)} type="text" placeholder="Enter Todo Here"/>
       </div>
       <div className="col-4">
-        <input type="date" value={updatedDate} onChange={(event) => handleAddTodoDate(event)} />
+        <input type="date" ref={finalDate} value={dateEventValue} onChange={(event) => handleAddTodoDate(event)} />
       </div>
       <div className="col-2">
-      <button type="button" onClick = {() => handleAddTodoButton()} className={`btn btn-success ${css["suman-button"]}`}><MdAddBox /></button>
+      <button type="button" onClick = {() => handleAddTodoButton(finalName,finalDate)} className={`btn btn-success ${css["suman-button"]}`}><MdAddBox /></button>
       
       </div>
     </div>

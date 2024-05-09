@@ -4,14 +4,15 @@ import TodoItems from "./components/TodoItems"
 import "./App.css"
 import CurrentDateTime from "./components/CurrentDateTime"
 import Container from "./components/Container"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import ErrorMessage from "./components/ErrorMessage"
+import { ItemsContext } from "./store/ItemsContext"
 
 function App() {
   let [eventValue, setEventValue] = useState("");
   let [dateEventValue, setDateEventValue] = useState("");
   let [inputText, setinputText] = useState('You Can Add Item');
-  let [allItems, setallItems] = useState([])
+  let [todoItems, settodoItems] = useState([])
   
   const handleAddTodoText = (event) => {
       setEventValue(event)
@@ -22,13 +23,15 @@ function App() {
     setDateEventValue(event.target.value)
 }
 
-  const handleAddTodoButton = () => {
+  const handleAddTodoButton = (finalName,finalDate) => {
+    console.log('Name:'+finalName.current.value);
+    console.log('Date'+finalDate.current.value);
     let inputText = eventValue.target.value
     let curDate = new Date().toLocaleDateString()
     // Adding Item in existing list
-    let newItem = [...allItems,{"id":allItems.length === 0 ? 1 :allItems[allItems.length - 1].id+1,"itemName":inputText,"date":dateEventValue === '' ? curDate :dateEventValue }]
+    let newItem = [...todoItems,{"id":todoItems.length === 0 ? 1 :todoItems[todoItems.length - 1].id+1,"itemName":inputText,"date":dateEventValue === '' ? curDate :dateEventValue }]
     // Setting new Item
-    setallItems(newItem)
+    settodoItems(newItem)
     eventValue.target.value = ""
     dateEventValue = ""
     setDateEventValue("")
@@ -36,25 +39,27 @@ function App() {
   }
 
   const handleOnDelete = (id) => {
-    let delItem = allItems.filter((item) => {
+    let delItem = todoItems.filter((item) => {
       return item.id !== id
     })
-    setallItems(delItem)
+    settodoItems(delItem)
   }
 
-  return( 
-  <Container>
-    <center className="todo-main-container">
-    <AppName />
-    <CurrentDateTime />
-    {inputText}
-    <AddTodo updatedDate={dateEventValue} handleAddTodoDate={handleAddTodoDate} handleAddTodoText={handleAddTodoText} handleAddTodoButton={handleAddTodoButton} />
-    <div className="items-container">
-      <ErrorMessage allItems={allItems}/>
-      <TodoItems handleOnDelete={handleOnDelete} allItems={allItems}/>
-    </div>
-  </center>
-  </Container>
+  return(
+  <ItemsContext.Provider value={{dateEventValue, todoItems,handleAddTodoText,handleAddTodoDate,handleAddTodoButton,handleOnDelete}}>
+    <Container>
+      <center className="todo-main-container">
+        <AppName />
+        <CurrentDateTime />
+        {inputText}
+        <AddTodo />
+        <div className="items-container">
+          <ErrorMessage />
+          <TodoItems />
+        </div>
+      </center>
+    </Container>
+  </ItemsContext.Provider> 
  )
 }
 
